@@ -113,10 +113,7 @@ export default function Page() {
               onChange={handleFileChange}
             />
             <Upload className="mx-auto h-12 w-12" />
-            <p className="mt-2 text-sm">Click to upload or drag and drop</p>
-            <p className="text-xs">
-              Supported formats: MP3, MP4, MOV, MKV, and more
-            </p>
+            <p className="mt-2 text-sm">Click to upload anything!</p>
           </div>
           {file && (
             <div className="mt-4 text-sm">
@@ -130,9 +127,11 @@ export default function Page() {
           <div className="mt-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
+                <div className="flex items-center justify-center h-full">
                 <Button variant="outline" disabled={!file}>
                   {file ? "Select Conversion Type" : "Upload a File First"}
                 </Button>
+                </div>
               </DropdownMenuTrigger>
 
               {category && (

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "rm -rf ./temp && next dev",
+    "build": "rm -rf ./temp && next build",
+    "start": "rm -rf ./temp && next start",
     "lint": "next lint"
   },
   "dependencies": {
