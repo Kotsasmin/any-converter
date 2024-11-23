@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { Check } from "lucide-react"; 
+import { Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,9 +18,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  fileCategories,
+  conversionOptions,
+  primaryOptions,
+  audioExtensions,
+  videoExtensions,
+} from "./constants/formats";
+
+
 
 export default function Page() {
-
   const [file, setFile] = useState<File | null>(null);
   const [format, setFormat] = useState<string | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -29,12 +37,12 @@ export default function Page() {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setIsDrawerOpen(true); 
+      setIsDrawerOpen(true);
     }
   };
 
   const handleFormatSelect = (selectedFormat: string | null) => {
-    setFormat(selectedFormat); 
+    setFormat(selectedFormat);
   };
 
   const handleConvert = async () => {
@@ -73,32 +81,11 @@ export default function Page() {
     const ext = filename.split(".").pop()?.toLowerCase();
     if (!ext) return null;
 
-    const fileCategories: Record<string, string[]> = {
-      image: ["jpg", "png", "gif", "heic", "svg"],
-      document: ["pdf", "doc", "docx", "xls", "csv"],
-      audio: ["mp3", "wav", "m4a", "ogg", "flac"],
-      video: ["mp4", "mov", "avi", "flv"],
-    };
-
     for (const [category, extensions] of Object.entries(fileCategories)) {
       if (extensions.includes(ext)) return category;
     }
 
     return null;
-  };
-
-  const conversionOptions: Record<string, string[]> = {
-    image: ["JPG", "PNG", "GIF", "HEIC", "SVG"],
-    document: ["PDF", "DOC", "DOCX", "XLS", "CSV"],
-    audio: ["MP3", "WAV", "M4A", "OGG", "FLAC"],
-    video: ["MP4", "MOV", "AVI", "FLV"],
-  };
-
-  const primaryOptions: Record<string, string[]> = {
-    image: ["Image"],
-    document: ["Document"],
-    audio: ["Audio"],
-    video: ["Audio", "Video"],
   };
 
   const category = file ? getFileCategory(file.name) : null;

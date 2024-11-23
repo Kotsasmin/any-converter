@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
+import { audioExtensions, videoExtensions } from "../../constants/formats";
+
 
 const execAsync = util.promisify(exec);
 
@@ -20,16 +23,13 @@ async function checkVAAPI() {
 }
 
 function isVideoFile(fileName: string): boolean {
-  const videoExtensions = ['.mp4', '.mkv', '.mov', '.avi', '.flv', '.webm'];
   const ext = path.extname(fileName).toLowerCase();
-  return videoExtensions.includes(ext);
+  return videoExtensions.includes(ext); // Use imported constant
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function isAudioFile(fileName: string): boolean {
-  const audioExtensions = ['.mp3', '.wav', '.aac', '.flac', '.ogg', '.m4a'];
   const ext = path.extname(fileName).toLowerCase();
-  return audioExtensions.includes(ext);
+  return audioExtensions.includes(ext); // Use imported constant
 }
 
 export async function POST(req: NextRequest) {
@@ -51,7 +51,6 @@ export async function POST(req: NextRequest) {
   const outputFilePath = path.join(tempDir, `${path.basename(file.name, path.extname(file.name))}.${format}`);
 
   try {
-
     const isVAAPIAvailable = await checkVAAPI();
 
     let command: string;
@@ -61,7 +60,6 @@ export async function POST(req: NextRequest) {
       command = `ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i "${originalFilePath}" \
 -vf 'format=nv12,hwupload' -c:v h264_vaapi -qp 24 -y "${outputFilePath}"`;
     } else {
-
       console.log('Using software encoding for audio/video...');
       command = `ffmpeg -i "${originalFilePath}" "${outputFilePath}"`;
     }
