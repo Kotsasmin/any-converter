@@ -98,7 +98,7 @@ export default function Page() {
       </div>
 
       <div className="w-full max-w-xl mx-auto p-6 shadow-lg rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Any Converter</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Any Converter by Kotsasmin</h1>
 
         {}
         <div className="flex flex-col items-center">
